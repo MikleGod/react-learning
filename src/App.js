@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import ArticlesList from "./component/ArticlesList";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import ArticleInfo from "./component/ArticleInfo";
 import Search from "./component/Search"
 import Tags from "./component/Tags";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from "./component/Login";
 
 
 class App extends React.Component {
@@ -39,6 +40,9 @@ class App extends React.Component {
             <BrowserRouter>
                 <div className='App container'>
                     <Switch>
+                        <Route exact path="/login">
+                            <Login/>
+                        </Route>
                         <Route exact path="/">
                             <div className='row align-items-start'>
                                 <div className='col-12'>
@@ -62,6 +66,7 @@ class App extends React.Component {
                         </Route>
                     </Switch>
                 </div>
+                {!localStorage.getItem('user') && window.location.pathname !== '/login' ? <Redirect to="/login"/> : ''}
             </BrowserRouter>
         );
     }
